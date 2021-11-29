@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:navigation_watchlist/watchlist_bloc.dart';
-import 'contact_item.dart';
-import 'contact_data_model.dart';
+import 'package:navigation_watchlist/model/contact_data_model.dart';
+import 'package:navigation_watchlist/widget/contact_item.dart';
 
 class CategoriesScreen extends StatelessWidget {
   List<Contact> data;

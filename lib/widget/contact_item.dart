@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'contact_data_model.dart';
+import 'package:navigation_watchlist/model/contact_data_model.dart';
 
 Widget userList(BuildContext context, int index, List<Contact> data) {
   return Container(
@@ -30,21 +30,6 @@ Widget userList(BuildContext context, int index, List<Contact> data) {
               const SizedBox(
                 height: 6,
               ),
-              // Row(
-              //   children: <Widget>[
-              //     const SizedBox(
-              //       width: 5,
-              //     ),
-              //     Text(ContactData[index]['id'],
-              //         style: const TextStyle(
-              //             color: Colors.black,
-              //             fontSize: 13,
-              //             letterSpacing: .3)),
-              //   ],
-              // ),
-              // const SizedBox(
-              //   height: 6,
-              // ),
               Row(
                 children: <Widget>[
                   const SizedBox(
@@ -66,7 +51,7 @@ Widget userList(BuildContext context, int index, List<Contact> data) {
               height: 50,
               margin: const EdgeInsets.only(left: 15),
               // child: Text('image'
-              child: Image.network(data[index].url)),
+              child: Image.network("https://picsum.photos/200")),
         ),
       ],
     ),

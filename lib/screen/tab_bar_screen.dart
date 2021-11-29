@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:navigation_watchlist/contact_data_model.dart';
+import 'package:navigation_watchlist/bloc/watchlist_bloc.dart';
+import 'package:navigation_watchlist/model/contact_data_model.dart';
+import 'package:navigation_watchlist/service/contactrespo.dart';
+import 'package:navigation_watchlist/src/string.dart';
 import 'categoreis_screen.dart';
-import 'watchlist_bloc.dart';
 
 class TabBarScreen extends StatefulWidget {
   const TabBarScreen({Key? key}) : super(key: key);
@@ -22,7 +24,7 @@ class _TabBarScreenState extends State<TabBarScreen>
     // TODO: implement initState
 
     _tabController = TabController(vsync: this, length: 3);
-    contactBloc = ContactBloc();
+    contactBloc = ContactBloc(ContactService());
     contactBloc.tabSink.add(1);
     super.initState();
   }
@@ -30,18 +32,12 @@ class _TabBarScreenState extends State<TabBarScreen>
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: Strings.name.length,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Watchlist'),
+          title: const Text(Strings.title),
           bottom: const TabBar(
-            tabs: [
-              Tab(text: "Contact 1"),
-              Tab(text: "Contact 2"),
-              Tab(
-                text: 'Contact 3',
-              )
-            ],
+            tabs: Strings.name,
           ),
         ),
         body: TabBarView(
@@ -72,7 +68,7 @@ class _TabBarScreenState extends State<TabBarScreen>
                             return Center(
                                 child: Text(snapshot.error.toString()));
                           } else {
-                            return const Text('Something went wrong');
+                            return const Text(Strings.unknownError);
                           }
                         }),
                     StreamBuilder(
@@ -85,7 +81,7 @@ class _TabBarScreenState extends State<TabBarScreen>
                             return Center(
                                 child: Text(snapshot.error.toString()));
                           } else {
-                            return const Text('Something went wrong');
+                            return const Text(Strings.unknownError);
                           }
                         }),
                     StreamBuilder(
@@ -98,7 +94,7 @@ class _TabBarScreenState extends State<TabBarScreen>
                             return Center(
                                 child: Text(snapshot.error.toString()));
                           } else {
-                            return const Text('Something went wrong');
+                            return const Text(Strings.unknownError);
                           }
                         }),
                   ]),

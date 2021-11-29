@@ -1,7 +1,8 @@
 import 'dart:async';
 
-import 'contact_data_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:navigation_watchlist/model/contact_data_model.dart';
+import 'package:navigation_watchlist/service/contactrespo.dart';
 
 class ContactBloc {
   List<Contact> contactList = [];
@@ -13,28 +14,15 @@ class ContactBloc {
   final _contactStreamController = StreamController<List<Contact>>.broadcast();
   StreamSink<List<Contact>> get _contactSink => _contactStreamController.sink;
   Stream<List<Contact>> get contactStream => _contactStreamController.stream;
-
-  ContactBloc() {
-    _tabStream.listen((event) {
-      if (event == 1) {
-        fetchAlbum();
-      }
-    });
-  }
-
-  Future<void> fetchAlbum() async {
+  ContactService contactRepo;
+  ContactBloc(this.contactRepo) {
     List<Contact> contactdata = [];
-    final response = await http.get(Uri.parse(
-        'https://5e53a76a31b9970014cf7c8c.mockapi.io/msf/getContacts'));
-    try {
-      if (response.statusCode == 200) {
-        contactdata = contactFromJson(response.body);
+    _tabStream.listen((event) async {
+      if (event == 1) {
+        contactdata = await contactRepo.fetchContact();
         _contactSink.add(contactdata);
       }
-    } catch (error) {
-      // ignore: avoid_print
-      print(error);
-    }
+    });
   }
 
   void dispose() {
